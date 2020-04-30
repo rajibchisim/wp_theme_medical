@@ -40,16 +40,13 @@ class AboutUsWidget extends \WP_Widget
         // echo __('Hello, World!', 'text_domain');
         // echo $after_widget;?>
 
-        <div class="row">
-          <div class="col-md-4 col-sm-4 marb20">
+
             <div class="ftr-tle">
               <h4 class="white no-padding"><?php echo $title ?></h4>
             </div>
             <div class="info-sec">
               <p><?php echo $description ?></p>
             </div>
-          </div>
-        </div>
 
       <?php
     }

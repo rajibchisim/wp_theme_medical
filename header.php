@@ -20,6 +20,19 @@
   ======================================================= -->
   <?php wp_head() ?>
 </head>
+<?php
+// new WP_Query( array(
+//         'post_type' => 'post',
+//         'cat' => 'quick_link',
+//         'posts_per_page' => 2,
+//         'tax_query' => array( array(
+//             'taxonomy' => 'post_format',
+//             'field' => 'slug',
+//             'terms' => array('post-format-aside', 'post-format-gallery', 'post-format-link', 'post-format-image', 'post-format-quote', 'post-format-status', 'post-format-audio', 'post-format-chat', 'post-format-video'),
+//             'operator' => 'NOT IN'
+//            ) )
+//        ));
+ ?>
 
 <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
 

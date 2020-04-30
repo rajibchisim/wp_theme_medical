@@ -4,7 +4,7 @@ namespace widgets;
 /**
  * Adds Foo_Widget widget.
  */
-class QuickLinks extends \WP_Widget
+class SocialsWidget extends \WP_Widget
 {
 
     /**
@@ -13,9 +13,9 @@ class QuickLinks extends \WP_Widget
     public function __construct()
     {
         parent::__construct(
-            'quick_links_widget', // Base ID
-            'RC Quick links', // Name
-            array( 'description' => __('List of Post format(Link) and quick-links category', 'text_domain'), ) // Args
+            'social_links_widget', // Base ID
+            'RC Social links', // Name
+            array( 'description' => __('List of social links', 'text_domain'), ) // Args
         );
     }
 
@@ -30,26 +30,19 @@ class QuickLinks extends \WP_Widget
     public function widget($args, $instance)
     {
         extract($args);
-        $title = apply_filters('widget_title', $instance['title']);
+        $title = apply_filters('widget_title', $instance['title']); ?>
 
-        $links = new \WP_Query([
-          'post_type' => 'post',
-          'cat' => get_cat_id('quick-link')
-        ]); ?>
-
-          <div class="ftr-tle">
-            <h4 class="white no-padding"><?php echo $title ?></h4>
-          </div>
-        <?php if ($links->have_posts()): ?>
-          <div class="info-sec">
-            <ul class="quick-info">
-            <?php while ($links->have_posts()): $links->the_post() ?>
-              <li><a href="<?php echo get_the_content() ?>"><i class="fa fa-circle"></i><?php echo get_the_title(); ?></a></li>
-            <?php endwhile ?>
-            </ul>
-          </div>
-        <?php endif;
-        wp_reset_postdata() ?>
+        <div class="ftr-tle">
+          <h4 class="white no-padding"><?php echo $title ?></h4>
+        </div>
+        <div class="info-sec">
+          <ul class="social-icon">
+            <li class="bglight-blue"><i class="fa fa-facebook"></i></li>
+            <li class="bgred"><i class="fa fa-google-plus"></i></li>
+            <li class="bgdark-blue"><i class="fa fa-linkedin"></i></li>
+            <li class="bglight-blue"><i class="fa fa-twitter"></i></li>
+          </ul>
+        </div>
 
       <?php
     }
