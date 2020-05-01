@@ -13,9 +13,9 @@ class AboutUsWidget extends \WP_Widget
     public function __construct()
     {
         parent::__construct(
-            'about_us_widget', // Base ID
-            'RC About us', // Name
-            array( 'description' => __('RC Short about us', 'text_domain'), ) // Args
+            'ml_about_us_widget', // Base ID
+            'ML About us', // Name
+            array( 'description' => __('Short about us', 'text_domain'), ) // Args
         );
     }
 

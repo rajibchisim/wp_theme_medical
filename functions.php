@@ -1,8 +1,11 @@
 <?php
 require('register_custom_post_types.php');
-require('autoloader.inc.php');
+require('classes/widgets/AboutUsWidget.class.php');
+require('classes/widgets/QuickLinks.class.php');
+require('classes/widgets/SocialsWidget.class.php');
 
-
+// register filters
+require('filters.group.php');
 
 add_action('wp_enqueue_scripts', 'load_script_css');
 add_action('init', 'initSchedules');

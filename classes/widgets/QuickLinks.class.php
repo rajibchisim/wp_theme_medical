@@ -13,8 +13,8 @@ class QuickLinks extends \WP_Widget
     public function __construct()
     {
         parent::__construct(
-            'quick_links_widget', // Base ID
-            'RC Quick links', // Name
+            'ml_quick_links_widget', // Base ID
+            'ML Quick links', // Name
             array( 'description' => __('List of Post format(Link) and quick-links category', 'text_domain'), ) // Args
         );
     }
@@ -35,21 +35,22 @@ class QuickLinks extends \WP_Widget
         $links = new \WP_Query([
           'post_type' => 'post',
           'cat' => get_cat_id('quick-link')
-        ]); ?>
+        ]);
+        $linkPosts = $links->get_posts();
+        // var_dump($linkPosts)?>
 
           <div class="ftr-tle">
             <h4 class="white no-padding"><?php echo $title ?></h4>
           </div>
-        <?php if ($links->have_posts()): ?>
+        <?php if (count($linkPosts) > 0): ?>
           <div class="info-sec">
             <ul class="quick-info">
-            <?php while ($links->have_posts()): $links->the_post() ?>
-              <li><a href="<?php echo get_the_content() ?>"><i class="fa fa-circle"></i><?php echo get_the_title(); ?></a></li>
+            <?php while (count($linkPosts) > 0): $linkPost = array_pop($linkPosts); ?>
+              <li><a href="<?php echo \apply_filters('extract_paragraph_innerHtml', $linkPost->post_content) ?>"><i class="fa fa-circle"></i><?php echo $linkPost->post_title?></a></li>
             <?php endwhile ?>
             </ul>
           </div>
-        <?php endif;
-        wp_reset_postdata() ?>
+        <?php endif; ?>
 
       <?php
     }

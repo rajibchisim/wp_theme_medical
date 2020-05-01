@@ -13,8 +13,8 @@ class ContactFormWidget extends \WP_Widget
     public function __construct()
     {
         parent::__construct(
-            'contact_form_widget', // Base ID
-            'Contact form widget', // Name
+            'ml_contact_form_widget', // Base ID
+            'ML Contact form widget', // Name
             array( 'description' => __('A Contact form', 'text_domain'), ) // Args
         );
     }

@@ -1,13 +1,14 @@
 <?php
-require(get_template_directory().'/autoloader.inc.php');
+require(wp_normalize_path(get_template_directory().'/classes/PostMultipart.class.php'));
 
 $options = [
   'post_type' => 'post',
   'tag' => 'section-featured-about',
 ];
 $section = new WP_Query($options);
+
 $postMultipart = new PostMultipart($section->get_posts());
-    ?>
+?>
 <section id="about" class="section-padding">
   <div class="container">
     <div class="row">

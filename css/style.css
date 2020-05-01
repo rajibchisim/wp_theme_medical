@@ -526,6 +526,10 @@ footer
   margin-right: 5px;
 }
 
+.social-icon li a {
+  color: #fff;
+}
+
 .bglight-blue {
   background-color: #3498DB;
 }
