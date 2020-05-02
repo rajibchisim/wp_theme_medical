@@ -53,6 +53,7 @@ h2 {
   text-transform: uppercase;
 }
 
+/* moved to wp_head
 hr.botm-line {
   height: 3px;
   width: 60px;
@@ -60,8 +61,7 @@ hr.botm-line {
   position: relative;
   border: 0;
   margin: 20px 0 20px 0;
-}
-
+} */
 /***************************************
 banner
 ***************************************/
@@ -187,6 +187,8 @@ banner
   padding-bottom: 15px;
 }
 
+/* //moved to wp_head for customizer support
+
 .btn-appoint, .btn-appoint:hover, .btn-appoint:focus {
   margin-top: 30px;
   padding: 10px 20px;
@@ -194,8 +196,7 @@ banner
   background-color: rgba(12, 184, 182, 0.91);
   border-radius: 3px;
   color: #fff;
-}
-
+} */
 .overlay-detail a i {
   text-align: center;
   position: absolute;
@@ -213,12 +214,12 @@ banner
 /***************************************
 services
 ***************************************/
+/* moved to wp_head
 .icon i {
   color: #0cb8b6;
   font-size: 45px;
   margin-bottom: 25px;
-}
-
+} */
 .service-info {
   margin-bottom: 20px;
 }
@@ -234,11 +235,11 @@ services
 /***************************************
 cta-1
 ***************************************/
+/* moved to wp_head
 .schedule-tab {
   background-color: #0CB8B6;
   float: left;
-}
-
+} */
 .medi-info {
   border-right: 1px solid #fff;
 }
@@ -292,6 +293,7 @@ about
   font-size: 28px;
 }
 
+/* moved to wp_head
 .more-features-box-text-icon {
   float: left;
   width: 40px;
@@ -303,8 +305,7 @@ about
   border-radius: 50%;
   color: #fff;
   text-align: center;
-}
-
+} */
 .more-features-box-text-description h3 {
   padding-bottom: 15px;
 }
@@ -422,6 +423,7 @@ cta -2
   color: #fff;
 }
 
+/* moved to wp_head
 .icon-play, .icon-play:hover, .icon-play:focus {
   background-color: #0CB8B6;
   padding: 5px 10px;
@@ -434,8 +436,7 @@ cta -2
 
 .text-primary {
   color: #0cb8b6;
-}
-
+} */
 .icon-mar {
   margin-right: 7px;
 }
@@ -447,13 +448,13 @@ contact us
   margin-top: 40px;
 }
 
+/* moved to wp_head
 .btn-form, .btn-form:hover, .btn-form:focus {
   background-color: #0cb8b6;
   color: #fff;
   border-radius: 0px;
   padding: 10px 20px;
-}
-
+} */
 .br-radius-zero {
   border-radius: 0px;
 }
@@ -530,6 +531,7 @@ footer
   color: #fff;
 }
 
+/* moved to wp_head
 .bglight-blue {
   background-color: #3498DB;
 }
@@ -544,8 +546,7 @@ footer
 
 .bglight-blue {
   background-color: #3498DB;
-}
-
+} */
 .top-footer {
   padding: 40px 0px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.12);

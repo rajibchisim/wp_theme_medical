@@ -1,24 +1,27 @@
 <?php
-require('register_custom_post_types.php');
 require('classes/widgets/AboutUsWidget.class.php');
 require('classes/widgets/QuickLinks.class.php');
 require('classes/widgets/SocialsWidget.class.php');
+require('register_custom_post_types.php');
 
 // register filters
 require('filters.group.php');
+
+require('style.customizer.php');
 
 add_action('wp_enqueue_scripts', 'load_script_css');
 add_action('init', 'initSchedules');
 add_action('widgets_init', 'init_widgets');
 add_action('after_setup_theme', 'hadler_after_setup_theme');
 add_action('customize_register', 'themeslug_customize_register');
-add_action('wp_head', 'update_css_style');
+
 
 function themeslug_customize_register($wp_customize)
 {
     customizerNavbar($wp_customize);
     customizerBanner($wp_customize);
     customizerCallToAction($wp_customize);
+    customizerColors($wp_customize);
 }
 
 function init_widgets()
@@ -37,66 +40,6 @@ function hadler_after_setup_theme()
       'primary' => __('Primary Menu location'),
   ]);
     add_theme_support('post-formats', array( 'link' ));
-}
-
-function rgbTorgba($rgb, $a)
-{
-    return 'rgba('.hexdec(substr($rgb, 1, 2)).','.hexdec(substr($rgb, 3, 2)) .','.hexdec(substr($rgb, 5, 2)).','.$a.')';
-}
-
-function update_css_style()
-{?>
-
-  <style type="text/css">
-  #banner{
-    background: url(<?php echo get_theme_mod('mod_banner_bg', get_template_directory_uri().'../img/bg-banner.jpg') ?>) no-repeat fixed;
-  	background-size: cover;
-  }
-  <?php
-    $modColor = get_theme_mod('mod_banner_bg_overlay', '#0d4653');
-    $modAlpha = get_theme_mod('mod_banner_bg_overlay_alpha', .78);
-   ?>
-  .bg-color {
-    background-color: <?php echo rgbTorgba($modColor, $modAlpha) ?>;
-    min-height: 650px;
-  }
-
-  <?php
-    $modColor = get_theme_mod('mod_nav_bar_bg', '#1c4a5a');
-   ?>
-  @media (max-width: 768px) {
-    .navbar-collapse {
-      background: <?php echo rgbTorgba($modColor, 0.9) ?>;
-    }
-  }
-
-  .top-nav-collapse {
-    padding: 0;
-    background: <?php echo rgbTorgba($modColor, 0.9) ?>;
-  }
-
-  <?php
-    $modColor = get_theme_mod('mod_nav_bar_active_color', '#0cb8b6');
-    $modAlpha = get_theme_mod('mod_nav_bar_active_color_alpha', 0.21);
-   ?>
-   .navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:focus, .navbar-default .navbar-nav>.active>a:hover {
-     color: #fff;
-     text-transform: uppercase;
-     background-color: <?php echo rgbTorgba($modColor, $modAlpha) ?>;
-   }
-
-   .navbar-default .navbar-nav>li>a:hover, .navbar-default .navbar-nav>li>a:focus {
-     color: #fff;
-     text-transform: uppercase;
-     background-color: <?php echo rgbTorgba($modColor, $modAlpha) ?>;
-   }
-
-
-  </style>
-
-
-
-<?php
 }
 
 function load_script_css()
@@ -251,13 +194,33 @@ function customizerColors($wp_customize)
     ));
 
 
-    // banner title
-    $wp_customize->add_control(new WP_Customize_Control($wp_customize, 'ctrl_banner_title', array(
-      'label' => __('Banner title', 'theme_textdomain'),
-      'section' => 'sec_mod_banner',
-      'settings' => addCustomizerSetting($wp_customize, 'mod_banner_title', 'HEALTHCARE AT YOUR DESK!!'),
-      'type' => 'text',
+    addColorControl('ctrl_cFooter', 'Footer area color', 'mod_cFooter', '#325C6A', $wp_customize, 'sec_mod_colors', true, 1);
+    addColorControl('ctrl_cPrimary', 'Primary color', 'mod_cPrimary', '#0cb8b6', $wp_customize, 'sec_mod_colors', true, 1);
+    addColorControl('ctrl_cSecondary', 'Secondary color', 'mod_cSecondary', '#ffb737', $wp_customize, 'sec_mod_colors', true, 1);
+    addColorControl('ctrl_cButtons', 'Buttons color', 'mod_cButtons', 'rgba(12, 184, 182, 0.91)', $wp_customize, 'sec_mod_colors', true, 1);
+}
+
+function addColorControl($ctrlName, $ctrlLabel, $settingName, $settingDefault, $wp_customize, $section, $addAlphaCtrl = false, $defaultAlpha = .5)
+{
+    //check rgba value.
+    $wp_customize->add_control(new WP_Customize_Color_Control($wp_customize, $ctrlName, array(
+    'label' => __($ctrlLabel, 'theme_textdomain'),
+    'section' => $section,
+    'settings' => addCustomizerSetting($wp_customize, $settingName, $settingDefault)
+  )));
+    if ($addAlphaCtrl) {
+        $wp_customize->add_control(new WP_Customize_Control($wp_customize, $ctrlName.'_alpha', array(
+      'label' => __($ctrlLabel.' Alpha', 'theme_textdomain'),
+      'section' => $section,
+      'settings' => addCustomizerSetting($wp_customize, $settingName.'_alpha', $defaultAlpha),
+      'type' => 'number',
+      'input_attrs' => array(
+        'min' => 0,
+        'max' => 1,
+        'step' => .05,
+      )
     )));
+    }
 }
 
 
