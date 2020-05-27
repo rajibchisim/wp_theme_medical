@@ -12,23 +12,23 @@
         ]);
 
         if ($contactInfo->have_posts()) {
-            $contactInfo->the_post(); ?>
-        <h3><?php echo get_the_title() ?></h3>
-        <div class="space"></div>
-        <p><i class="fa <?php echo $post->icon_for_address ?> fa-fw pull-left fa-2x"></i><?php echo $post->address ?></p>
-        <div class="space"></div>
-        <p><i class="fa <?php echo $post->icon_contact_email ?> fa-fw pull-left fa-2x"></i><?php echo $post->contact_email ?></p>
-        <div class="space"></div>
-        <p><i class="fa <?php echo $post->icon_phone_number ?> fa-fw pull-left fa-2x"></i><?php echo $post->phone_number ?></p>
+          $contactInfo->the_post(); ?>
+          <h3><?php echo get_the_title() ?></h3>
+          <div class="space"></div>
+          <p><i class="fa <?php echo $post->icon_for_address ?> fa-fw pull-left fa-2x"></i><?php echo $post->address ?></p>
+          <div class="space"></div>
+          <p><i class="fa <?php echo $post->icon_contact_email ?> fa-fw pull-left fa-2x"></i><?php echo $post->contact_email ?></p>
+          <div class="space"></div>
+          <p><i class="fa <?php echo $post->icon_phone_number ?> fa-fw pull-left fa-2x"></i><?php echo $post->phone_number ?></p>
       </div>
 
-      <?php
+    <?php
         }
-      wp_reset_postdata();
-       ?>
-      <div class="col-md-8 col-sm-8 marb20">
-        <?php include(get_template_directory().'/modules/contact_form.php') ?>
-      </div>
+        wp_reset_postdata();
+    ?>
+    <div class="col-md-8 col-sm-8 marb20">
+      <?php include('contact_form.php') ?>
+    </div>
     </div>
   </div>
 </section>

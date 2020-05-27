@@ -1,13 +1,16 @@
-jQuery(document).ready(function($) {
+jQuery(document).ready(function ($) {
   "use strict";
 
   //Contact
-  $('form.contactForm').submit(function() {
+  $('form.contactForm').submit(function (e) {
+    e.preventDefault();
+    let form = $(this);
+    let url = $(this).data('url');
     var f = $(this).find('.form-group'),
       ferror = false,
       emailExp = /^[^\s()<>@,;:\/]+@\w[\w\.-]+\.[a-z]{2,}$/i;
 
-    f.children('input').each(function() { // run all inputs
+    f.children('input').each(function () { // run all inputs
 
       var i = $(this); // current input
       var rule = i.attr('data-rule');
@@ -42,7 +45,7 @@ jQuery(document).ready(function($) {
             break;
 
           case 'checked':
-            if (! i.is(':checked')) {
+            if (!i.is(':checked')) {
               ferror = ierror = true;
             }
             break;
@@ -57,7 +60,7 @@ jQuery(document).ready(function($) {
         i.next('.validation').html((ierror ? (i.attr('data-msg') !== undefined ? i.attr('data-msg') : 'wrong Input') : '')).show('blind');
       }
     });
-    f.children('textarea').each(function() { // run all inputs
+    f.children('textarea').each(function () { // run all inputs
 
       var i = $(this); // current input
       var rule = i.attr('data-rule');
@@ -89,31 +92,68 @@ jQuery(document).ready(function($) {
       }
     });
     if (ferror) return false;
-    else var str = $(this).serialize();
-    var action = $(this).attr('action');
-    if( ! action ) {
-      action = 'wp-content/themes/medilab/contactform/contactform.php';
+    else {
+      let confirmDialogue = document.createElement("div");
+      let innerdiv = document.createElement('div');
+      confirmDialogue.setAttribute('id', 'confirmEmailResponder');
+      let confirmMessage = document.createElement('p');
+      confirmMessage.innerHTML = `<span class="info-title">Wordpress AJAX call DEMO</span>
+                              <span class="msg">Your message will be submitted via AJAX. Email responder functionality is active.</span>
+                              <span class="que">Do you want to recieve demo email?</span>
+                              <span class="small">(To get an email please provide valid email)</span>`;
+      let noButton = document.createElement('button');
+      noButton.setAttribute('class', 'btn btn-ajax-email btn-no');
+      noButton.innerText = "Do not send!";
+      let yesButton = document.createElement('button');
+      yesButton.setAttribute('class', 'btn btn-ajax-email btn-yes');
+      yesButton.innerText = "Send demo email";
+
+      innerdiv.appendChild(confirmMessage);
+      innerdiv.appendChild(yesButton);
+      innerdiv.appendChild(noButton);
+      confirmDialogue.appendChild(innerdiv);
+      document.body.appendChild(confirmDialogue);
+
+      let data;
+      yesButton.addEventListener('click', function () {
+        sendAjaxContactForm(url, appendFormData(form, [{ name: 'sendmail', value: '1' }]));
+        confirmDialogue.style.display = 'none';
+      })
+      noButton.addEventListener('click', function () {
+        sendAjaxContactForm(url, appendFormData(form, [{ name: 'sendmail', value: '0' }]));
+        confirmDialogue.style.display = 'none';
+      })
     }
+    return false;
+  });
+
+  function appendFormData(form, dataArray) {
+    let data = form.serializeArray();
+    data = data.concat(dataArray);
+    console.log('data after concat: ', data);
+    return $.param(data);
+  }
+
+  function sendAjaxContactForm(url, data) {
+    console.log(data);
     $.ajax({
       type: "POST",
-      url: action,
-      data: str,
-      success: function(msg) {
-        alert(msg);
-        if (msg == 'OK') {
+      url,
+      data,
+      success: function (msg) {
+        if (msg.msg == 'OK') {
           $("#sendmessage").addClass("show");
           $("#errormessage").removeClass("show");
           $('.contactForm').find("input, textarea").val("");
+          $('form.contactForm').trigger("reset");
         } else {
           $("#sendmessage").removeClass("show");
           $("#errormessage").addClass("show");
-          $('#errormessage').html(msg);
+          $('#errormessage').html(msg.msg);
         }
-
       },
 
     });
-    return false;
-  });
+  }
 
 });

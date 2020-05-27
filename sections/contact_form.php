@@ -3,7 +3,7 @@
   <div class="space"></div>
   <div id="sendmessage">Your message has been sent. Thank you!</div>
   <div id="errormessage"></div>
-  <form action="" method="post" role="form" class="contactForm">
+  <form action="" data-url="<?php echo admin_url('admin-ajax.php') ?>" method="post" role="form" class="contactForm">
     <div class="form-group">
       <input type="text" name="name" class="form-control br-radius-zero" id="name" placeholder="Your Name" data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
       <div class="validation"></div>
@@ -24,5 +24,7 @@
     <div class="form-action">
       <button type="submit" class="btn btn-form">Send Message</button>
     </div>
+    <input type="hidden" name="action" value="contact_form_action">
+    <input type="hidden" name="_wpnonce" value="<?php echo wp_create_nonce('contact_nonce') ?>">
   </form>
 </div>

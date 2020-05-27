@@ -1,0 +1,63 @@
+#login h1 a,
+.login h1 a {
+    background-image: url(../img/logo.png);
+    height: 80px;
+    width: 200px;
+    background-size: 200px 80px;
+    background-repeat: no-repeat;
+    padding-bottom: 30px;
+}
+
+form#loginform {
+    background-color: transparent;
+    border: 0;
+    box-shadow: none;
+    padding-top: 80px;
+}
+
+form#loginform label {
+    display: block;
+}
+
+form#loginform input {
+    box-sizing: border-box;
+    padding: 8px 8px;
+    font-size: 14px;
+    line-height: 1.42857143;
+}
+form#loginform input[type="submit"] {
+    border-radius: 0;
+    box-sizing: border-box;
+    padding: 10px 20px;
+    font-size: 14px;
+    background-color: rgba(12, 184, 182, 0.91);
+    border: 0;
+}
+body.login #login_error {
+    position: relative;
+    top: 60px;
+}
+body.login {
+    background-color: #fff;
+}
+#login > h1 {
+    background-color: rgba(12, 184, 182, 1);;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding-top: 24px;
+    padding-bottom: 16px;
+}
+#login > h1 a {
+    padding-bottom: 0;
+}
+#login #nav,
+#login #backtoblog{
+    text-align: center;
+}
+#login .forgetmenot {
+    display: flex;
+    width: 100%;
+    align-items: center;
+}

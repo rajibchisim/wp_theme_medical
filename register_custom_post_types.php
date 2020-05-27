@@ -36,12 +36,12 @@ function registerServiceType()
         'show_ui'            => true,
         'show_in_menu'       => true,
         'query_var'          => true,
-        'rewrite'            => array( 'slug' => 'service' ),
+        'rewrite'            => array('slug' => 'service'),
         'capability_type'    => 'post',
         'has_archive'        => true,
         'hierarchical'       => false,
         'menu_position'      => null,
-        'supports'           => array( 'title', 'editor', 'author', 'thumbnail', 'excerpt', 'comments' ),
+        'supports'           => array('title', 'editor', 'author', 'thumbnail', 'excerpt', 'comments'),
         'menu_icon'          => 'dashicons-store',
     );
 
@@ -83,12 +83,12 @@ function registerDoctorType()
         'show_ui'            => true,
         'show_in_menu'       => true,
         'query_var'          => true,
-        'rewrite'            => array( 'slug' => 'doctor' ),
+        'rewrite'            => array('slug' => 'doctor'),
         'capability_type'    => 'post',
         'has_archive'        => true,
         'hierarchical'       => false,
         'menu_position'      => null,
-        'supports'           => array( 'title', 'editor', 'author', 'thumbnail', 'excerpt', 'comments' ),
+        'supports'           => array('title', 'editor', 'author', 'thumbnail', 'excerpt', 'comments'),
         'menu_icon'          => 'dashicons-heart',
     );
 
@@ -108,7 +108,7 @@ function registerTestimonialType()
         'edit_item'             => __('Edit Testimonial', 'textdomain'),
         'view_item'             => __('View Testimonial', 'textdomain'),
         'all_items'             => __('All Testimonial', 'textdomain'),
-      );
+    );
 
     $args = array(
         'labels'             => $labels,
@@ -117,12 +117,12 @@ function registerTestimonialType()
         'show_ui'            => true,
         'show_in_menu'       => true,
         'query_var'          => true,
-        'rewrite'            => array( 'slug' => 'testimonial' ),
+        'rewrite'            => array('slug' => 'testimonial'),
         'capability_type'    => 'post',
         'has_archive'        => true,
         'hierarchical'       => false,
         'menu_position'      => null,
-        'supports'           => array( 'title', 'editor', 'author', 'thumbnail', 'excerpt' ),
+        'supports'           => array('title', 'editor', 'author', 'thumbnail', 'excerpt'),
         'menu_icon'          => 'dashicons-thumbs-up',
     );
 
@@ -142,7 +142,7 @@ function registerContactInfoType()
         'edit_item'             => __('Edit Contact info', 'textdomain'),
         'view_item'             => __('View Contact info', 'textdomain'),
         'all_items'             => __('All Contact info', 'textdomain'),
-      );
+    );
 
     $args = array(
         'labels'             => $labels,
@@ -151,15 +151,81 @@ function registerContactInfoType()
         'show_ui'            => true,
         'show_in_menu'       => true,
         'query_var'          => true,
-        'rewrite'            => array( 'slug' => 'contact_info' ),
+        'rewrite'            => array('slug' => 'contact_info'),
         'capability_type'    => 'post',
         'hierarchical'       => false,
         'menu_position'      => null,
-        'supports'           => array( 'title', 'author' ),
-        'menu_icon'          => 'dashicons-email-alt2',
+        'supports'           => array('title', 'author'),
+        'menu_icon'          => 'dashicons-location-alt',
     );
 
     register_post_type('contact_info', $args);
+}
+function registerMessagesType()
+{
+    $labels = array(
+        'name'                  => _x('Messages', 'Post type general name', 'textdomain'),
+        'singular_name'         => _x('Message', 'Post type singular name', 'textdomain'),
+        'menu_name'             => _x('Messages', 'Admin Menu text', 'textdomain'),
+        'name_admin_bar'        => _x('Message', 'Add New on Toolbar', 'textdomain'),
+        'add_new'               => __('Add New', 'textdomain'),
+        'add_new_item'          => __('Add New Message', 'textdomain'),
+        'new_item'              => __('New Message', 'textdomain'),
+        'edit_item'             => __('Edit Message', 'textdomain'),
+        'view_item'             => __('View Message', 'textdomain'),
+        'all_items'             => __('All Messages', 'textdomain'),
+    );
+
+    $args = array(
+        'labels'             => $labels,
+        'public'             => true,
+        'publicly_queryable' => true,
+        'show_ui'            => true,
+        'show_in_menu'       => true,
+        'query_var'          => true,
+        'rewrite'            => array('slug' => 'message'),
+        'capability_type'    => 'post',
+        'hierarchical'       => false,
+        'menu_position'      => null,
+        'supports'           => array('title', 'editor'),
+        'menu_icon'          => 'dashicons-email-alt2',
+    );
+
+    register_post_type('message', $args);
+    add_action('manage_message_posts_columns', 'setColumns');
+    add_action('manage_message_posts_custom_column', 'getColumnValues', 10, 2);
+
+    function getColumnValues($column, $post_id)
+    {
+        $messageMeta = get_post_meta($post_id, 'contact_form', true);
+        $message = get_post_field('post_content', $post_id);
+
+        switch ($column) {
+            case 'sender':
+                echo $messageMeta['sender'] ?? '';
+                break;
+            case 'message':
+                echo substr($message ?? '', 0, 50);
+                break;
+            case 'email':
+                echo $messageMeta['email'] ?? '';
+                break;
+
+            default:
+                echo '';
+                break;
+        }
+    }
+    function setColumns($columns)
+    {
+        return array(
+            'title'     => $columns['title'],
+            'sender'    => 'Sender',
+            'message'  => 'Message',
+            'email'  => 'Email',
+            'date'      => $columns['date']
+        );
+    }
 }
 
 // function registerDoctorType()
