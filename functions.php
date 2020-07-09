@@ -33,6 +33,12 @@ function wpb_sender_name($original_email_from)
 // Hooking up our functions to WordPress filters 
 add_filter('wp_mail_from', 'wpb_sender_email');
 add_filter('wp_mail_from_name', 'wpb_sender_name');
+add_filter('wp_mail_content_type', 'set_html_mail_content_type');
+
+function set_html_mail_content_type()
+{
+  return 'text/html';
+}
 
 function setup_phpmailer_init(PHPMailer $phpmailer)
 {
