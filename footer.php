@@ -20,7 +20,7 @@
         <div class="col-12 text-center" style="margin-bottom: 8px;">
           <p>
             <i>
-              Wordpress custom theme made top of - Medilap Free template.<br>
+              Wordpress custom theme made top of - Medilap Free static template.<br>
               This site is a development demo.
             </i>
           </p>
