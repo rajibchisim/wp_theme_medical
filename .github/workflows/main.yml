@@ -1,0 +1,25 @@
+on:
+  push:
+    branches: ['master']
+  pull_request:
+    branches: ['master']
+
+name: Sync live deploy
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: 1    
+
+    - name: 📂 Sync files
+      uses: SamKirkland/FTP-Deploy-Action@4.1.0
+      with:
+        server: ${{ secrets.ftp_url }}
+        username: ${{ secrets.ftp_username }}
+        password: ${{ secrets.ftp_password }}
+        protocol: ftps
+        server-dir: ${{ secrets.ftp_server_dir }}
+        exclude: "[**/.git*, **/.git*/**, **/node_modules/**, **/vendor/**, .env]"
