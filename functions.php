@@ -45,7 +45,7 @@ function setup_phpmailer_init(PHPMailer $phpmailer)
   $phpmailer->Host = 'mail.rajibchisim.com'; // for example, smtp.mailtrap.io
   $phpmailer->Port = 587; // set the appropriate port: 465, 2525, etc.
   $phpmailer->Username = 'wp_mailer@rajibchisim.com'; // your SMTP username
-  $phpmailer->Password = 'ghjk5678'; // your SMTP password
+  $phpmailer->Password = 'e9ceoP31'; // your SMTP password
   $phpmailer->SMTPAuth = true;
   $phpmailer->SMTPSecure = 'tls'; // preferable but optional
   $phpmailer->IsSMTP();
