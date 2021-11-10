@@ -23,7 +23,7 @@ function update_css_style()
 
   <style type="text/css">
     #banner {
-      background: url(<?php echo get_theme_mod('mod_banner_bg', get_template_directory_uri() . '../img/bg-banner.jpg') ?>) no-repeat fixed;
+      background: url(<?php echo get_theme_mod('mod_banner_bg', get_template_directory_uri() . '/img/bg-banner.jpg') ?>) no-repeat fixed;
       background-size: cover;
     }
 
